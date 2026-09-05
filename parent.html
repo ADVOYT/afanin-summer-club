@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامج التميز المنزلي | نادي أفانين</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --brand-navy: #1d2d5f; 
+            --brand-sky: #29abe2;  
+            --brand-gold: #ecca43; 
+            --brand-orange: #f26522;
+            --brand-maroon: #7a0826; 
+            --brand-green: #0b6640;  
+            --bg-light: #f7f9fc;
+        }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-light); color: var(--brand-navy); min-height: 100vh; }
+        .navbar { background-color: #ffffff !important; border-bottom: 3px solid var(--brand-sky); }
+        .navbar-brand img { height: 55px; width: auto; }
+        .parent-hero { background: linear-gradient(135deg, var(--brand-navy) 0%, #4776b8 100%); color: #fff; border-radius: 28px; padding: 26px; box-shadow: 0 14px 35px rgba(29,45,95,.12); position: relative; }
+        .info-pill { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28); border-radius: 999px; padding: 7px 14px; color: #fff; font-size: .85rem; font-weight: 700; display: inline-flex; gap: 6px; align-items: center; }
+        .menu-btn { width: 48px; height: 48px; border-radius: 16px; border: 1px solid rgba(255,255,255,.45); background: rgba(255,255,255,.14); color: white; font-size: 1.35rem; }
+        
+        .week-card, .evaluation-card, .values-note { background: #fff; border: 0; border-radius: 24px; box-shadow: 0 10px 28px rgba(29,45,95,.05); }
+        .week-number { font-size: 1.35rem; font-weight: 900; color: var(--brand-navy); }
+        .values-note { border-right: 5px solid var(--brand-gold) !important; background: linear-gradient(135deg, #fffdf4, #fff); }
+        
+        /* نظام النجوم التفاعلية */
+        .interactive-stars { display: flex; justify-content: center; direction: rtl; gap: 3px; cursor: pointer; }
+        .interactive-stars span { font-size: 1.45rem; color: #d9dde5; transition: color 0.15s, transform 0.15s; line-height: 1; user-select: none; }
+        .interactive-stars span:hover, .interactive-stars span.active { color: var(--brand-gold) !important; transform: scale(1.1); }
+        
+        .sticky-criterion { position: sticky; right: 0; z-index: 2; background: #fff !important; }
+        thead .sticky-criterion { z-index: 4; background: #f8f9fa !important; }
+        .active-today-column { background-color: rgba(236,202,67,.09) !important; }
+        th.active-today-column { background-color: rgba(236,202,67,.22) !important; color: var(--brand-navy) !important; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="static/images/logo.jpg" onerror="this.style.display='none'" alt="شعار نادي أفانين">
+                <span class="fs-4 fw-bold" style="color: var(--brand-navy);">نادي أفانين الصيفي</span>
+            </a>
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">نموذج تفاعلي لمعاينة طالبة</span>
+                <a class="btn btn-outline-danger btn-sm px-3 rounded-pill fw-bold" href="index.html">خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4 text-start" dir="rtl">
+        <div class="row g-4">
+            
+            <div class="col-12">
+                <div class="parent-hero">
+                    <div class="d-flex justify-content-between align-items-start gap-3">
+                        <div>
+                            <h2 class="fw-bold mb-2">🏆 برنامج التميز المنزلي القيمي</h2>
+                            <p class="mb-3 opacity-75 small">متابعة يومية سهلة ومحفزة لبناء العادات الجميلة وغرس القيم.</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="info-pill">👧 الطالبة: ريما عبدالكريم</span>
+                                <span class="info-pill">📚 المرحلة الابتدائية</span>
+                                <span class="info-pill">⭐ متابعة الأسبوع الحالي</span>
+                            </div>
+                        </div>
+                        <button class="menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#parentMenu" aria-controls="parentMenu" title="القائمة">☰</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تنبيه نجاح الحفظ التفاعلي -->
+            <div class="col-12 d-none" id="saveSuccessAlert">
+                <div class="alert alert-success rounded-4 shadow-sm border-0 d-flex align-items-center gap-3">
+                    <span class="fs-3">🎉</span>
+                    <div>
+                        <strong class="d-block" id="alertTitle">تم حفظ تقييم اليوم بنجاح في المنظومة!</strong>
+                        <small class="text-muted">هذا نموذج محاكاة تفاعلي حي، إذا قمتِ بتحديث الصفحة ستعود البيانات لوضعها المبدئي.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="week-card p-3 p-md-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h6 class="fw-bold text-muted mb-1">📅 الجدول الحالي</h6>
+                        <div class="week-number">الأسبوع الثاني</div>
+                    </div>
+                    <span class="badge rounded-pill px-3 py-2 fs-6" style="background:var(--brand-gold); color:var(--brand-navy);">⭐ رصد التميز الأسبوعي</span>
+                </div>
+            </div>
+
+            <!-- ⏳ ملاحظة مهمة (الأمانة ومهلة الـ 24 ساعة) -->
+            <div class="col-12">
+                <div class="values-note p-3 p-md-4">
+                    <h6 class="fw-bold mb-2" style="color:var(--brand-navy);">⏳ ملاحظة مهمة قبل التقييم</h6>
+                    <p class="mb-1 small text-dark" style="line-height:1.9;"><strong>مدة التقييم المتاحة لكل يوم 24 ساعة</strong>، مع العلم أن تقييم الأسبوع ينتهي نهائيًا بنهاية يوم السبت الساعة 11:59 مساءً.</p>
+                    <p class="mb-0 small text-muted" style="line-height:1.9;">نرجو إكمال التقييم أولًا بأول، مع تحرّي الأمانة والدقة؛ فهدف البرنامج بناء عادات حقيقية ومستدامة، <strong>وغراس قيم اليوم هي حصاد الغد</strong>. 🌱</p>
+                </div>
+            </div>
+
+            <!-- جدول رصد النجوم التفاعلي بالكامل -->
+            <div class="col-12">
+                <div class="evaluation-card p-3 p-md-4">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 border-bottom pb-3 mb-3">
+                        <div>
+                            <h5 class="fw-bold text-dark mb-1">⭐ رصد النجوم اليومية (تجربة تفاعلية)</h5>
+                            <p class="small text-muted mb-0">المعايير 1-3 (من 0.2 إلى 1 نقطة)، والمعايير 4-5 (نقطة كاملة).</p>
+                        </div>
+                        <span class="badge bg-light text-dark border rounded-pill px-3 py-2">الأسبوع الثاني</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle text-center border-0 small mb-0" id="evaluationTable" style="min-width: 900px;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="text-start sticky-criterion" style="min-width: 180px;">المعيار اليومي</th>
+                                    <th data-day-index="0">الأحد</th>
+                                    <th data-day-index="1">الإثنين</th>
+                                    <th data-day-index="2">الثلاثاء</th>
+                                    <th data-day-index="3">الأربعاء</th>
+                                    <th data-day-index="4">الخميس</th>
+                                    <th data-day-index="5">الجمعة</th>
+                                    <th data-day-index="6">السبت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 1. الصلاة في أوقاتها -->
+                                <tr>
+                                    <td class="text-start fw-bold sticky-criterion">1. الصلاة في أوقاتها</td>
+                                    <td data-day-index="0"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="1"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="2"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="3"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="4"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="5"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="6"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                </tr>
+                                <!-- 2. بر الوالدين والمساعدة -->
+                                <tr>
+                                    <td class="text-start fw-bold sticky-criterion">2. بر الوالدين والمساعدة</td>
+                                    <td data-day-index="0"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="1"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="2"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="3"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="4"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="5"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="6"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                </tr>
+                                <!-- 3. مبادرة منزلية -->
+                                <tr>
+                                    <td class="text-start fw-bold sticky-criterion">3. مبادرة منزلية</td>
+                                    <td data-day-index="0"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="1"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="2"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="3"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="4"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="5"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                    <td data-day-index="6"><div class="interactive-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></td>
+                                </tr>
+                                <!-- 4. صلاة الوتر -->
+                                <tr>
+                                    <td class="text-start fw-bold sticky-criterion">4. صلاة الوتر</td>
+                                    <td data-day-index="0"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="1"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="2"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="3"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="4"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="5"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="6"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                </tr>
+                                <!-- 5. تنظيف الأسنان -->
+                                <tr>
+                                    <td class="text-start fw-bold sticky-criterion">5. تنظيف الأسنان</td>
+                                    <td data-day-index="0"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="1"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="2"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="3"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="4"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="5"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                    <td data-day-index="6"><div class="interactive-stars single-star"><span>★</span></div></td>
+                                </tr>
+                                <!-- أزرار الحفظ -->
+                                <tr class="table-light">
+                                    <td class="text-start fw-bold text-muted sticky-criterion">حالة الرصد</td>
+                                    <td data-day-index="0"><button class="btn btn-outline-primary btn-sm px-2 rounded-pill fw-bold" onclick="simulateSave('الأحد', this)">حفظ</button></td>
+                                    <td data-day-index="1"><button class="btn btn-outline-primary btn-sm px-2 rounded-pill fw-bold" onclick="simulateSave('الإثنين', this)">حفظ</button></td>
+                                    <td data-day-index="2"><button class="btn btn-outline-primary btn-sm px-2 rounded-pill fw-bold" onclick="simulateSave('الثلاثاء', this)">حفظ</button></td>
+                                    <td data-day-index="3"><button class="btn btn-outline-primary btn-sm px-2 rounded-pill fw-bold" onclick="simulateSave('الأربعاء', this)">حفظ</button></td>
+                                    <td data-day-index="4"><button class="btn btn-outline-primary btn-sm px-2 rounded-pill fw-bold" onclick="simulateSave('الخميس', this)">حفظ</button></td>
+                                    <td data-day-index="5"><button class="btn btn-outline-primary btn-sm px-2 rounded-pill fw-bold" onclick="simulateSave('الجمعة', this)">حفظ</button></td>
+                                    <td data-day-index="6"><button class="btn btn-outline-primary btn-sm px-2 rounded-pill fw-bold" onclick="simulateSave('السبت', this)">حفظ</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- القائمة الجانبية -->
+    <div class="offcanvas offcanvas-end text-start" tabindex="-1" id="parentMenu" dir="rtl">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title fw-bold" style="color:var(--brand-navy);">☰ القائمة والبيانات</h5>
+            <button type="button" class="btn-close ms-0" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body" style="background:#f7f9fc;">
+            <div class="card p-3 border-0 shadow-sm rounded-4 mb-3">
+                <h6 class="fw-bold mb-2">👩‍👧 بيانات الطالبة</h6>
+                <div class="small text-muted mb-1"><strong>اسم الطالبة:</strong> ريما عبدالكريم</div>
+                <div class="small text-muted mb-1"><strong>المرحلة:</strong> المرحلة الابتدائية</div>
+                <div class="small text-muted mb-1"><strong>ولي الأمر:</strong> أم ريما</div>
+                <div class="small text-muted"><strong>حالة الحساب:</strong> معتمد وموثق</div>
+            </div>
+            <!-- خانة رسالة الإدارة المعدلة -->
+            <div class="card p-3 border-0 shadow-sm rounded-4 mb-3" style="border-right: 5px solid var(--brand-green) !important;">
+                <h6 class="fw-bold text-success mb-2">📝 ملاحظة الإدارة</h6>
+                <p class="small text-dark mb-0 fw-bold">متميزة في الحضور و التفاعل 🌸</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- سكريبت التعرف الآلي على اليوم الحالي وتفعيل النجوم -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. تحديد اليوم الحالي تلقائياً (0 = الأحد, 1 = الإثنين, ..., 6 = السبت)
+            const todayIndex = new Date().getDay();
+
+            // تطبيق التمييز على كامل عمود اليوم الحالي
+            document.querySelectorAll(`[data-day-index="${todayIndex}"]`).forEach(el => {
+                el.classList.add('active-today-column');
+
+                // إضافة كلمة (اليوم) لرأس العمود
+                if (el.tagName === 'TH') {
+                    el.innerHTML = `${el.textContent.trim()} <span class="small fw-normal d-block text-primary">(اليوم)</span>`;
+                }
+
+                // تمييز زر الحفظ الخاص باليوم الحالي
+                const btn = el.querySelector('button');
+                if (btn) {
+                    btn.classList.remove('btn-outline-primary');
+                    btn.classList.add('btn-success', 'shadow-sm', 'px-3');
+                    btn.textContent = 'حفظ اليوم';
+                }
+            });
+
+            // 2. تفعيل النقر على النجوم
+            document.querySelectorAll('.interactive-stars').forEach(function (container) {
+                const stars = Array.from(container.querySelectorAll('span'));
+                const isSingle = container.classList.contains('single-star');
+
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', function () {
+                        if (isSingle) {
+                            star.classList.toggle('active');
+                        } else {
+                            stars.forEach((s, i) => {
+                                if (i <= index) {
+                                    s.classList.add('active');
+                                } else {
+                                    s.classList.remove('active');
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        });
+
+        function simulateSave(dayName, btn) {
+            const alertBox = document.getElementById('saveSuccessAlert');
+            const alertTitle = document.getElementById('alertTitle');
+            alertTitle.textContent = `تم حفظ تقييم يوم (${dayName}) بنجاح! ✓`;
+            alertBox.classList.remove('d-none');
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            btn.classList.remove('btn-outline-primary', 'btn-outline-secondary');
+            btn.classList.add('btn-success');
+            btn.textContent = 'تم الحفظ ✓';
+
+            setTimeout(() => {
+                alertBox.classList.add('d-none');
+            }, 4000);
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة نادي أفانين الصيفي | شركة أفنان المعرفة</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --brand-navy: #1d2d5f; 
+            --brand-sky: #29abe2;  
+            --brand-gold: #ecca43; 
+            --brand-orange: #f26522;
+            --brand-maroon: #7a0826; 
+            --brand-green: #0b6640;  
+            --bg-light: #f7f9fc;
+        }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-light); color: var(--brand-navy); min-height: 100vh; display: flex; flex-direction: column; }
+        img { max-width: 100%; }
+        @media (max-width: 767.98px) {
+            .navbar .container { padding-left: 12px; padding-right: 12px; }
+            body > .container, .container.my-5 { width: 100%; max-width: 100%; margin-top: 1.25rem !important; margin-bottom: 1.5rem !important; padding-left: 12px; padding-right: 12px; }
+            .navbar-brand img { height: 44px !important; }
+            .navbar .btn { padding-left: 14px !important; padding-right: 14px !important; }
+        }
+        
+        #splash-screen-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #ffffff; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .splash-animated-logo { width: 140px; height: 140px; animation: pulseScale 1.8s infinite ease-in-out; }
+        @keyframes pulseScale {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .navbar { background-color: #ffffff !important; border-bottom: 3px solid var(--brand-sky); }
+        .navbar-brand { font-weight: 900; color: var(--brand-navy) !important; }
+        
+        .program-premium-card {
+            background: #ffffff; border-radius: 24px; border: 1px solid rgba(29, 45, 95, 0.04);
+            padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: 0 12px 35px rgba(29, 45, 95, 0.02); height: 100%; transition: transform 0.3s ease;
+        }
+        .program-premium-card:hover { transform: translateY(-5px); }
+        .program-top-img {
+            width: 100%; max-width: 290px; height: 175px; border-radius: 20px; object-fit: cover;
+            margin: 0 auto 16px auto; display: block; box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+        }
+
+        .schedule-capsule-card {
+            background: #ffffff; border: none; border-radius: 24px; overflow: hidden;
+            box-shadow: 0 12px 30px rgba(29, 45, 95, 0.03); height: 100%; transition: all 0.3s;
+        }
+        .schedule-capsule-card:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(29, 45, 95, 0.06); }
+        .capsule-header {
+            color: #ffffff; padding: 15px 20px; font-weight: 900; font-size: 1.05rem;
+            display: flex; align-items: center; justify-content: space-between; border-radius: 0 0 20px 20px;
+        }
+        .capsule-body { padding: 25px; text-align: right; }
+        .schedule-text-line { line-height: 1.8; font-size: 0.95rem; font-weight: 600; color: #4a5568; }
+
+        .countdown-container { 
+            background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-maroon) 100%); 
+            color: #ffffff; border-radius: 24px; padding: 40px 20px; position: relative;
+        }
+        .countdown-box { background: rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 12px; min-width: 80px; font-size: 2rem; font-weight: 900; color: var(--brand-gold); display: inline-block; }
+        .registration-link-banner { display: inline-block; background-color: var(--brand-gold); color: var(--brand-navy) !important; font-weight: 900; text-decoration: none; padding: 14px 45px; border-radius: 50px; box-shadow: 0 5px 20px rgba(236, 202, 67, 0.4); }
+        .btn-brand { background-color: var(--brand-navy); color: white; border-radius: 50px; font-weight: 700; padding: 10px 30px; border: none; text-decoration: none; display: inline-block; }
+        .btn-brand:hover { background-color: #142044; color: white; }
+        .section-title { font-weight: 900; text-align: center; margin-bottom: 35px; color: var(--brand-navy); position: relative; }
+        .section-title::after { content: ''; display: block; width: 80px; height: 5px; background: var(--brand-gold); margin: 8px auto 0; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة الترحيب -->
+    <div id="splash-screen-overlay">
+        <img src="static/images/logo_animated.gif" onerror="this.src='https://i.ibb.co/3kM2W1p/afanin-placeholder.png'" class="splash-animated-logo" alt="شعار نادي أفانين">
+        <h5 class="fw-bold mt-4" style="color: var(--brand-navy); font-weight: 900;">نادي أفانين الصيفي يرحب بكم...</h5>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="static/images/logo.jpg" onerror="this.style.display='none'" alt="شعار نادي أفانين" style="height: 55px; width: auto;">
+                <span class="fs-4 fw-bold">نادي أفانين الصيفي</span>
+            </a>
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <a class="btn btn-brand btn-sm px-4 rounded-pill shadow-sm" href="login.html">بوابة الدخول</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5 flex-grow-1">
+        <div class="row justify-content-center text-center g-4">
+            
+            <div class="col-12" id="timer_wrapper_box">
+                <div class="countdown-container shadow-lg">
+                    <h3 class="fw-bold mb-2" style="font-weight: 900;">🎯 توثيق انطلاق رحلة نادي أفانين الصيفي</h3>
+                    <p class="opacity-75 small mb-4">🎉 انطلقت البرامج المباركة لصيفٍ مليء بالتجارب والإنجازات والقيم النبيلة</p>
+                    <div class="d-flex justify-content-center gap-2 gap-md-3 mb-4" dir="ltr">
+                        <div><div class="countdown-box" id="main_days">00</div><div class="small opacity-75 mt-1 text-white">يوم</div></div>
+                        <div><div class="countdown-box" id="main_hours">00</div><div class="small opacity-75 mt-1 text-white">ساعة</div></div>
+                        <div><div class="countdown-box" id="main_minutes">00</div><div class="small opacity-75 mt-1 text-white">دقيقة</div></div>
+                        <div><div class="countdown-box" id="main_seconds">00</div><div class="small opacity-75 mt-1 text-white">ثانية</div></div>
+                    </div>
+                    <div class="mt-2">
+                        <a href="login.html" class="registration-link-banner">استعراض المنصة ونموذج المتابعة 🚀</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- باقة البرامج والدورات المعتمدة -->
+            <div class="col-12 mt-5 text-start" dir="rtl">
+                <h3 class="section-title">🌟 باقة برامجنا ودوراتنا المعتمدة</h3>
+                <div class="row g-4 justify-content-center">
+                    
+                    <!-- 1. دورة الذكاء الاصطناعي والأردوينو -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/d0ZjRd27/image.jpg" class="program-top-img" alt="دورة الذكاء الإصطناعي و الأوردينو">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">دورة الذكاء الإصطناعي و الأوردينو</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: المتوسط و الثانوي</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. أبطال التقنية -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/FknLts27/image.jpg" class="program-top-img" alt="أبطال التقنية">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">أبطال التقنية</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: الإبتدائي</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. دورة المصممة الصغيرة -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/mVZmW444/image.jpg" class="program-top-img" alt="دورة المصممة الصغيرة">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">دورة المصممة الصغيرة</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: المتوسط و الثانوي</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. دورة الإلقاء نجوم TedX -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/k2r14zSg/image.jpg" class="program-top-img" alt="دورة الإلقاء نجوم TedX">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">دورة الإلقاء نجوم TedX</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: المتوسط و الثانوي</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. دورة الكروشيه -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/Z6Wg6pQZ/image.jpg" class="program-top-img" alt="دورة الكروشيه">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">دورة الكروشيه</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: المتوسط و الثانوي</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. دورة التسريحات والضفائر -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/SX6ZXM7c/image.jpg" class="program-top-img" alt="دورة التسريحات و الضفائر">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">دورة التسريحات و الضفائر</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: الإبتدائي و المتوسط</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. دورة المزارعة الصغيرة -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/tpJpC8ht/image.jpg" class="program-top-img" alt="دورة المزارعة الصغيرة">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">دورة المزارعة الصغيرة</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: الإبتدائي</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. دورة الإسعافات الأولية -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/wTc5N4c/image.jpg" class="program-top-img" alt="دورة الإسعافات الأوليه">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">دورة الإسعافات الأوليه</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: جميع الفئات</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 9. ورشة تزيين الكيك -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/bMMc4gR2/image.jpg" class="program-top-img" alt="ورشة تزين الكيك">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">ورشة تزين الكيك</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: جميع الفئات</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 10. برنامج التميز المنزلي -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/PGFDHrJk/image.jpg" class="program-top-img" alt="برنامج التميز المنزلي">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">برنامج التميز المنزلي</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: جميع الفئات</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 11. برنامج مرافئ الطمأنينة -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="program-premium-card shadow-sm">
+                            <img src="https://i.ibb.co/rRBm3vXS/image.jpg" class="program-top-img" alt="برنامج مرافئ الطمأنينة">
+                            <div class="w-100 text-center">
+                                <h4 class="fw-bold mb-3 text-primary" style="font-weight:900; font-size:1.15rem;">برنامج مرافئ الطمأنينة</h4>
+                                <div class="mt-auto">
+                                    <span class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill" style="font-size:0.85rem;">🎯 الفئة: جميع الفئات</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- الجداول الأسبوعية الملونة والمفصلة بالفترات -->
+            <div class="col-12 mt-5 text-start" dir="rtl">
+                <h3 class="section-title">📅 الجدول الأسبوعي لمناطق التنافس والخبرة</h3>
+                <div class="row g-4">
+                    
+                    <!-- 🟡 منطقة الصغار — الابتدائي -->
+                    <div class="col-12 col-xl-6">
+                        <div class="schedule-capsule-card shadow-sm h-100">
+                            <div class="capsule-header" style="background: linear-gradient(135deg, var(--brand-sky) 0%, var(--brand-navy) 100%);">
+                                <span class="fs-6">🟡 منطقة الصغار (الابتدائي)</span>
+                                <span class="badge bg-white bg-opacity-25 text-white rounded-pill px-3 py-1">المرحلة الابتدائية</span>
+                            </div>
+                            <div class="p-3">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-sm align-middle text-center mb-0 small" style="border-color: #edf2f7;">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th style="width: 18%; background: #f8fafc;">الفترة</th>
+                                                <th style="width: 20.5%;">الأحد</th>
+                                                <th style="width: 20.5%;">الإثنين</th>
+                                                <th style="width: 20.5%;">الثلاثاء</th>
+                                                <th style="width: 20.5%;">الأربعاء</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="fw-bold bg-light">الأولى</td>
+                                                <td>السباحة</td>
+                                                <td>أبطال التقنية</td>
+                                                <td>الإسعافات الأولية</td>
+                                                <td>ورشة تزيين الكيك</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold bg-light">الثانية</td>
+                                                <td>المزارعة الصغيرة</td>
+                                                <td>التسريحات والضفائر</td>
+                                                <td>مرافئ الطمأنينة</td>
+                                                <td>ألعاب ومسابقات حركية</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold bg-light">الثالثة</td>
+                                                <td>أبطال التقنية</td>
+                                                <td>الإسعافات الأولية</td>
+                                                <td>المزارعة الصغيرة</td>
+                                                <td class="fw-bold text-primary">فعالية الأربعاء</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 🟣 منطقة الإبداع — المتوسط -->
+                    <div class="col-12 col-xl-6">
+                        <div class="schedule-capsule-card shadow-sm h-100">
+                            <div class="capsule-header" style="background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-orange) 100%);">
+                                <span class="fs-6">🟣 منطقة الإبداع (المتوسط)</span>
+                                <span class="badge bg-white bg-opacity-25 text-white rounded-pill px-3 py-1">المرحلة المتوسطة</span>
+                            </div>
+                            <div class="p-3">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-sm align-middle text-center mb-0 small" style="border-color: #edf2f7;">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th style="width: 18%; background: #f8fafc;">الفترة</th>
+                                                <th style="width: 20.5%;">الأحد</th>
+                                                <th style="width: 20.5%;">الإثنين</th>
+                                                <th style="width: 20.5%;">الثلاثاء</th>
+                                                <th style="width: 20.5%;">الأربعاء</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="fw-bold bg-light">الأولى</td>
+                                                <td>المصممة الصغيرة</td>
+                                                <td>السباحة</td>
+                                                <td>الذكاء الاصطناعي والأوردينو</td>
+                                                <td>الإلقاء نجوم TEDx</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold bg-light">الثانية</td>
+                                                <td>التسريحات والضفائر</td>
+                                                <td>الكروشيه</td>
+                                                <td>مرافئ الطمأنينة</td>
+                                                <td>ورشة تزيين الكيك</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold bg-light">الثالثة</td>
+                                                <td>ألعاب ومسابقات حركية</td>
+                                                <td>الكروشيه</td>
+                                                <td>الإسعافات الأولية</td>
+                                                <td class="fw-bold text-primary">فعالية الأربعاء</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 🔵 منطقة التميز — الثانوي -->
+                    <div class="col-12 col-xl-6">
+                        <div class="schedule-capsule-card shadow-sm h-100">
+                            <div class="capsule-header" style="background: linear-gradient(135deg, var(--brand-maroon) 0%, var(--brand-orange) 100%);">
+                                <span class="fs-6">🔵 منطقة التميز (الثانوي)</span>
+                                <span class="badge bg-white bg-opacity-25 text-white rounded-pill px-3 py-1">المرحلة الثانوية</span>
+                            </div>
+                            <div class="p-3">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-sm align-middle text-center mb-0 small" style="border-color: #edf2f7;">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th style="width: 18%; background: #f8fafc;">الفترة</th>
+                                                <th style="width: 20.5%;">الأحد</th>
+                                                <th style="width: 20.5%;">الإثنين</th>
+                                                <th style="width: 20.5%;">الثلاثاء</th>
+                                                <th style="width: 20.5%;">الأربعاء</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="fw-bold bg-light">الأولى</td>
+                                                <td>الذكاء الاصطناعي والأوردينو</td>
+                                                <td>المصممة الصغيرة</td>
+                                                <td>السباحة</td>
+                                                <td>الإلقاء نجوم TEDx</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold bg-light">الثانية</td>
+                                                <td>الكروشيه</td>
+                                                <td>الإسعافات الأولية</td>
+                                                <td>مرافئ الطمأنينة</td>
+                                                <td>ورشة تزيين الكيك</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold bg-light">الثالثة</td>
+                                                <td>الكروشيه</td>
+                                                <td>ألعاب ومسابقات حركية</td>
+                                                <td class="text-muted">—</td>
+                                                <td class="fw-bold text-primary">فعالية الأربعاء</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 🟢 منطقة الخبرة — الأمهات -->
+                    <div class="col-12 col-xl-6">
+                        <div class="schedule-capsule-card shadow-sm h-100">
+                            <div class="capsule-header" style="background: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-navy) 100%);">
+                                <span class="fs-6">🟢 منطقة الخبرة (الأمهات)</span>
+                                <span class="badge bg-white bg-opacity-25 text-white rounded-pill px-3 py-1">برنامج الأمهات</span>
+                            </div>
+                            <div class="p-3 d-flex flex-column justify-content-center h-100">
+                                <div class="d-grid gap-3 py-2">
+                                    <div class="p-3 rounded-4 border d-flex align-items-center justify-content-between" style="background: #fdfefe; border-color: rgba(11, 102, 64, 0.2) !important;">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <span class="badge rounded-pill px-3 py-2 text-white" style="background: var(--brand-green);">الإثنين</span>
+                                            <span class="fw-bold text-dark fs-6">برنامج "الأم المتوازنة"</span>
+                                        </div>
+                                        <span class="text-muted small">لقاء إثرائي حواري </span>
+                                    </div>
+                                    <div class="p-3 rounded-4 border d-flex align-items-center justify-content-between" style="background: #fdfefe; border-color: rgba(11, 102, 64, 0.2) !important;">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <span class="badge rounded-pill px-3 py-2 text-white" style="background: var(--brand-green);">الأربعاء</span>
+                                            <span class="fw-bold text-dark fs-6">دورة "تحمل الضغوطات وصناعة الاتزان"</span>
+                                        </div>
+                                        <span class="text-muted small">ورشة تدريبية وتطويرية </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+    <!-- كود إخفاء شاشة الترحيب الاحتياطي -->
+    <script>
+        (function () {
+            function hideSplash() {
+                const splash = document.getElementById('splash-screen-overlay');
+                if (!splash) return;
+                splash.style.transition = 'opacity 0.35s ease';
+                splash.style.opacity = '0';
+                splash.style.pointerEvents = 'none';
+                window.setTimeout(function () {
+                    if (splash.parentNode) splash.parentNode.removeChild(splash);
+                }, 400);
+            }
+            window.addEventListener('load', function () {
+                window.setTimeout(hideSplash, 1800);
+            });
+            window.setTimeout(hideSplash, 3000);
+        })();
+    </script>
+
+    <!-- ملفات الجافا سكريبت الرسمية للمنصة -->
+    <script src="static/js/afanin_effects.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

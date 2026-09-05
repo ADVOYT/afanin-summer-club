@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة تسجيل الدخول | نادي أفانين</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --brand-navy: #1d2d5f; --brand-sky: #29abe2; --brand-gold: #ecca43; --bg-light: #f7f9fc; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-light); color: var(--brand-navy); min-height: 100vh; display: flex; flex-direction: column; }
+        .navbar { background-color: #ffffff !important; border-bottom: 3px solid var(--brand-sky); }
+        .navbar-brand img { height: 55px; width: auto; }
+        .portal-box { border-radius: 20px; transition: transform 0.2s, box-shadow 0.2s; border: 2px solid transparent; text-decoration: none; display: block; }
+        .portal-box:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(29, 45, 95, 0.08) !important; }
+        .portal-parent { border-color: rgba(41, 171, 226, 0.4); background: #ffffff; }
+        .portal-admin { border-color: rgba(29, 45, 95, 0.2); background: #ffffff; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="static/images/logo.jpg" onerror="this.style.display='none'" alt="شعار نادي أفانين">
+                <span class="fs-4 fw-bold" style="color: var(--brand-navy);">نادي أفانين الصيفي</span>
+            </a>
+            <div class="ms-auto">
+                <a class="btn btn-outline-primary btn-sm px-3 rounded-pill" href="index.html">الرئيسية ↩️</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-auto py-5">
+        <div class="row justify-content-center text-start" dir="rtl">
+            <div class="col-12 col-md-8 col-lg-5">
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden bg-white p-4 p-md-5">
+                    
+                    <div class="text-center mb-4">
+                        <div class="fs-1 mb-2">🔐</div>
+                        <h3 class="fw-bold" style="font-weight:900; color: var(--brand-navy);">بوابة الدخول الموحدة</h3>
+                        <p class="text-muted small">نادي أفانين الصيفي الرقمي - شركة أفنان المعرفة</p>
+                    </div>
+
+                    <!-- تنبيه منع الدخول عند الضغط على عضو الإدارة -->
+                    <div id="adminAlert" class="alert alert-danger rounded-4 shadow-sm text-center d-none mb-4" role="alert">
+                        ⚠️ <strong>غير مصرح لك بالدخول:</strong> هذه اللوحة مغلقة ومخصصة للإدارة المركزية فقط.
+                    </div>
+
+                    <div class="d-grid gap-3">
+                        <!-- الخيار الأول: ولي الأمر (يوجه إلى parent.html) -->
+                        <a href="parent.html" class="portal-box portal-parent p-3 shadow-sm">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="fs-2">👩‍👧</div>
+                                <div class="flex-grow-1">
+                                    <h5 class="fw-bold text-primary mb-1">دخول ولي الأمر (معاينة طالبة)</h5>
+                                    <p class="text-muted small mb-0">استعراض نموذج متابعة الطالبة ورصد النجوم</p>
+                                </div>
+                                <span class="badge bg-primary rounded-pill px-3 py-2">فتح ←</span>
+                            </div>
+                        </a>
+
+                        <!-- الخيار الثاني: عضو الإدارة (يظهر التنبيه) -->
+                        <button type="button" onclick="triggerAdminAlert()" class="portal-box portal-admin p-3 shadow-sm text-start w-100 btn btn-link text-decoration-none">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="fs-2">🛡️</div>
+                                <div class="flex-grow-1">
+                                    <h5 class="fw-bold text-dark mb-1">تسجيل الدخول كعضو الإدارة</h5>
+                                    <p class="text-muted small mb-0">لوحة التحكم السحابية وإدارة التسجيلات</p>
+                                </div>
+                                <span class="badge bg-secondary rounded-pill px-3 py-2">دخول 🔒</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-4 pt-2">
+                        <small class="text-muted">نسخة استعراض وتوثيق 2026</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function triggerAdminAlert() {
+            const el = document.getElementById('adminAlert');
+            el.classList.remove('d-none');
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
