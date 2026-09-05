@@ -1,0 +1,1 @@
+# afanin-summer-club
